@@ -1,12 +1,14 @@
 import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Play, Disc3, Music2, AudioWaveform } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const HeroSection = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [isHovered, setIsHovered] = useState(false);
   const [scrollOpacity, setScrollOpacity] = useState(1);
   const [scrollY, setScrollY] = useState(0);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -46,29 +48,30 @@ const HeroSection = () => {
               </span>
             </h1>
             <p className="text-xl md:text-2xl mb-8 text-zinc-400 max-w-3xl mx-auto">
-              Создаю уникальные биты, которые помогут артистам выделиться. От трэпа до лоу-фай — найди
-              свой идеальный звук и выведи музыку на новый уровень.
+              Профессиональный веб-микшер для создания и сведения треков прямо в браузере.
+              Загружай аудио, регулируй громкость и панораму — без установки программ.
             </p>
-            <div className="relative inline-block">
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <Button
                 size="lg"
-                className="bg-white text-black hover:bg-zinc-200 text-lg px-8 py-6 rounded-full transition-all duration-300 hover:scale-105"
+                className="bg-purple-600 hover:bg-purple-700 text-white text-lg px-8 py-6 rounded-full transition-all duration-300 hover:scale-105"
                 onMouseEnter={() => setIsHovered(true)}
                 onMouseLeave={() => setIsHovered(false)}
-                asChild
+                onClick={() => navigate("/auth")}
               >
-                <a href="#" target="_blank" rel="noopener noreferrer">
-                  <span className="relative z-10">Слушать биты</span>
-                  <span
-                    className={`ml-2 relative z-10 transition-transform duration-200 ${
-                      isHovered ? "translate-x-1" : ""
-                    }`}
-                  >
-                    &rarr;
-                  </span>
-                </a>
+                <span>Попробовать бесплатно</span>
+                <span className={`ml-2 transition-transform duration-200 ${isHovered ? "translate-x-1" : ""}`}>&rarr;</span>
+              </Button>
+              <Button
+                size="lg"
+                variant="outline"
+                className="border-white/20 text-white hover:bg-white/10 text-lg px-8 py-6 rounded-full"
+                onClick={() => navigate("/mixer")}
+              >
+                Открыть микшер
               </Button>
             </div>
+            <p className="text-zinc-600 text-sm mt-4">3 дня бесплатно · Без карты · Отмена в любой момент</p>
           </div>
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto">

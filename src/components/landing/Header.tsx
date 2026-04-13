@@ -1,10 +1,14 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "@/hooks/useAuth";
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const navigate = useNavigate();
+  const { user, logout } = useAuth();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -50,10 +54,10 @@ const Header = () => {
           <ul className="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-8 p-4 md:p-0">
             <li>
               <button
-                onClick={() => scrollToSection("licenses")}
+                onClick={() => scrollToSection("pricing")}
                 className="text-white hover:text-purple-400 transition-colors"
               >
-                Лицензии
+                Тарифы
               </button>
             </li>
             <li>
@@ -61,7 +65,7 @@ const Header = () => {
                 onClick={() => scrollToSection("about")}
                 className="text-white hover:text-purple-400 transition-colors"
               >
-                Обо мне
+                О нас
               </button>
             </li>
             <li>
@@ -74,15 +78,38 @@ const Header = () => {
             </li>
           </ul>
         </nav>
-        <Button
-          variant="outline"
-          className="hidden md:block border-white/20 text-white hover:bg-white/10"
-          asChild
-        >
-          <a href="#" target="_blank" rel="noopener noreferrer">
-            BeatStars
-          </a>
-        </Button>
+        <div className="hidden md:flex items-center gap-2">
+          {user ? (
+            <>
+              <Button
+                variant="outline"
+                className="border-purple-500/50 text-purple-300 hover:bg-purple-600/20"
+                onClick={() => navigate("/mixer")}
+              >
+                Открыть микшер
+              </Button>
+              <button onClick={logout} className="text-zinc-500 hover:text-white text-sm px-2 transition-colors">
+                Выйти
+              </button>
+            </>
+          ) : (
+            <>
+              <Button
+                variant="ghost"
+                className="text-white hover:bg-white/10"
+                onClick={() => navigate("/auth")}
+              >
+                Войти
+              </Button>
+              <Button
+                className="bg-purple-600 hover:bg-purple-700 text-white"
+                onClick={() => navigate("/auth")}
+              >
+                Попробовать бесплатно
+              </Button>
+            </>
+          )}
+        </div>
       </div>
     </header>
   );
