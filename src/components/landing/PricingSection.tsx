@@ -18,13 +18,14 @@ const plans = [
     ],
     cta: "Начать бесплатно",
     ctaStyle: "bg-white/10 hover:bg-white/20 text-white border border-white/20",
+    saving: null,
   },
   {
     name: "Pro",
     price: "299 ₽",
     period: "в месяц",
-    color: "border-purple-500/50",
-    badge: "Популярный",
+    color: "border-white/10",
+    badge: null,
     features: [
       "Неограниченное кол-во треков",
       "Загрузка аудиофайлов",
@@ -35,7 +36,27 @@ const plans = [
       "Приоритетная поддержка",
     ],
     cta: "Выбрать Pro",
+    ctaStyle: "bg-white/10 hover:bg-white/20 text-white border border-white/20",
+    saving: null,
+  },
+  {
+    name: "Pro на полгода",
+    price: "1 199 ₽",
+    period: "6 месяцев",
+    color: "border-purple-500/50",
+    badge: "Выгода 33%",
+    features: [
+      "Неограниченное кол-во треков",
+      "Загрузка аудиофайлов",
+      "Управление громкостью",
+      "Стерео-панорама",
+      "Воспроизведение в браузере",
+      "Мастер-громкость",
+      "Приоритетная поддержка",
+    ],
+    cta: "Выбрать на полгода",
     ctaStyle: "bg-purple-600 hover:bg-purple-700 text-white",
+    saving: "Экономия 595 ₽ по сравнению с помесячной оплатой",
   },
 ];
 
@@ -44,13 +65,13 @@ const PricingSection = () => {
 
   return (
     <section id="pricing" className="py-24 px-4">
-      <div className="max-w-4xl mx-auto">
+      <div className="max-w-5xl mx-auto">
         <div className="text-center mb-14">
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">Простые тарифы</h2>
           <p className="text-zinc-400 text-lg">Начни бесплатно, переходи на Pro когда будешь готов</p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-6">
+        <div className="grid md:grid-cols-3 gap-6">
           {plans.map((plan) => (
             <div
               key={plan.name}
@@ -84,6 +105,9 @@ const PricingSection = () => {
               >
                 {plan.cta}
               </Button>
+              {plan.saving && (
+                <p className="text-center text-xs text-purple-400 mt-3">{plan.saving}</p>
+              )}
             </div>
           ))}
         </div>
